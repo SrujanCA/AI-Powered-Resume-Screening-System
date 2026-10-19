@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+		"name": "AI-Powered Resume Screening System API Collection",
+		"description": "Complete REST API collection for AI-Powered Resume Screening System built with Spring Boot 3 & JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "Register Recruiter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"Jane Recruiter\",\n  \"email\": \"recruiter@example.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"ROLE_RECRUITER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					}
+				},
+				{
+					"name": "Register Candidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"John Candidate\",\n  \"email\": \"candidate@example.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"ROLE_CANDIDATE\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"recruiter@example.com\",\n  \"password\": \"Password123!\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Job Management",
+			"item": [
+				{
+					"name": "Create Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Java Backend Developer\",\n  \"companyName\": \"Tech Corp\",\n  \"location\": \"Remote / New York\",\n  \"description\": \"Looking for a skilled Java Developer with Spring Boot and REST API experience.\",\n  \"minExperience\": 2,\n  \"educationRequirement\": \"Bachelor's Degree\",\n  \"skills\": [\n    { \"skillName\": \"Java\", \"required\": true },\n    { \"skillName\": \"Spring Boot\", \"required\": true },\n    { \"skillName\": \"MySQL\", \"required\": true },\n    { \"skillName\": \"Docker\", \"required\": false }\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/jobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jobs"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/jobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"jobs"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Resume & Screening",
+			"item": [
+				{
+					"name": "Parse Resume Text",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"John Doe\\njohn@example.com\\n(555) 123-4567\\n3 years of experience in Java, Spring Boot, MySQL\\nEducation: B.S. in Computer Science\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/candidates/parse-text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"candidates",
+								"parse-text"
+							]
+						}
+					}
+				},
+				{
+					"name": "Screen Candidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/screening/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"screening",
+								"1",
+								"1"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Candidate Rankings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/screening/jobs/1/rankings?minScore=70",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"screening",
+								"jobs",
+								"1",
+								"rankings"
+							],
+							"query": [
+								{
+									"key": "minScore",
+									"value": "70"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get AI Screening Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/screening/1/ai-report",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"screening",
+								"1",
+								"ai-report"
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}
